@@ -13,23 +13,17 @@ Plugin 'scrooloose/nerdtree'
 " Ctrlp "
 Plugin 'ctrlpvim/ctrlp.vim'
 
+" YCM "
+Plugin 'valloric/youcompleteme'
+
 " vim-airline "
 Plugin 'bling/vim-airline'
 
 " Tagbar "
 Plugin 'majutsushi/tagbar'
 
-" YCM "
-Plugin 'valloric/youcompleteme'
-
-" YCM-Generator "
-Plugin 'rdnetto/ycm-generator'
-
 " Solarized "
 Plugin 'altercation/vim-colors-solarized'
-
-" TERN js "
-Plugin 'marijnh/tern_for_vim'
 
 " Ack "
 Plugin 'mileszs/ack.vim'
@@ -75,10 +69,15 @@ inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
 
-map <F8> :TagbarToggle<cr>
+inoremap "      ""<Left>
+inoremap ""     ""
+
+map <F8>       :TagbarToggle<cr>
 
 map <leader>f  :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py
 imap <leader>f :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py
+
+inoremap <leader>cl<CR> console.log();<Left><Left>
 
 " Variables "
 let g:airline#extensions#tabline#enabled = 1
