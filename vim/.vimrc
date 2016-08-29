@@ -26,7 +26,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'mileszs/ack.vim'
 
 " YCM "
-Plugin 'valloric/youcompleteme'
+"Plugin 'valloric/youcompleteme'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -79,8 +79,8 @@ inoremap {}     {}
 inoremap "      ""<Left>
 inoremap ""     ""
 
-map  <leader>f  :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py
-imap <leader>f  :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py
+map  <leader>f  :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
+imap <leader>f  :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
 
 nnoremap <leader>cl     :call PrintConsoleLog()<CR>
 inoremap <leader>cl<CR> <C-O>:call PrintConsoleLog()<CR>
