@@ -19,13 +19,13 @@
 
 (require 'line-number-settings)
 
-(provide 'neotree-settings)
-
-(provide 'powerline-settings)
+(require 'neotree-settings)
 
 ;;
 ;; Modes
 ;;
+
+(projectile-global-mode)
 
 (require 'evil)
 (evil-mode 1)
@@ -38,3 +38,5 @@
 
 (require 'js2-mode)
 (require 'js2-mode-settings)
+
+(require 'powerline-settings)
