@@ -14,12 +14,10 @@
 ;;
 
 (require 'general-settings)
-
 (require 'color-settings)
-
 (require 'line-number-settings)
-
 (require 'neotree-settings)
+(require 'yasnippet-settings)
 
 ;;
 ;; Modes
