@@ -14,14 +14,6 @@
 
 (add-hook 'js2-mode-hook 'my-js-hook)
 
-;; Turn setup for Auto-Complete
-(defun my-tern-ac-setup ()
-   '(progn
-      (require 'tern-auto-complete)
-      (tern-ac-setup)))
-  
-(eval-after-load 'tern (my-tern-ac-setup))
-
 ;; Global key bindings
 (global-set-key (kbd "<f2>") 'tern-find-definition)
 

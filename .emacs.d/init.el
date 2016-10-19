@@ -1,5 +1,8 @@
-;; Emacs Configuration file
+;;; package --- Sumarry
 
+;;; Commentary:
+
+;;; Code:
 ;; Added settings directory
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -12,7 +15,6 @@
 ;;
 ;; Settings
 ;;
-
 (require 'general-settings)
 (require 'color-settings)
 (require 'line-number-settings)
@@ -35,9 +37,18 @@
 (require 'js2-mode-settings)
 (require 'octave-settings)
 
-;; Auto-Complete configs for autocompletion framework
-(require 'auto-complete)
-(ac-config-default)
+;; Company mode
+(add-hook 'after-init-hook 'global-company-mode)
 
-;; Add octave-mode to list of Auto-Complete modes
-(add-to-list 'ac-modes 'octave-mode)
+;; Company mode hook function
+(defun my-company-mode-hook ()
+  (add-to-list 'company-backends 'company-tern))
+
+(add-hook 'company-mode-hook 'my-company-mode-hook)
+
+;; Web mode init
+(require 'web-mode-settings)
+(my-web-mode-init)
+
+;; company web html
+(require 'company-web-html)
