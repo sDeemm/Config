@@ -1,4 +1,4 @@
-;;; package --- Sumarry
+;;; init.el --- init file for emacs
 
 ;;; Commentary:
 
@@ -15,21 +15,28 @@
 ;;
 ;; Settings
 ;;
-(require 'general-settings)
 (require 'color-settings)
+(require 'status-bar-init)
+(require 'general-settings)
 (require 'line-number-settings)
 (require 'neotree-settings)
 (require 'yasnippet-settings)
-(require 'powerline-settings)
 
+;; Projectile project manager
 (projectile-global-mode)
 
+;; Vi emulator layer
 (require 'evil)
 (evil-mode 1)
 
-(require 'ido)
-(ido-mode 1)
+;; auto-highlight-symbol init
+(require 'auto-highlight-symbol)
+(global-auto-highlight-symbol-mode 1)
 
+;; Ido mode and ido fuzzy search
+(require 'ido-init)
+
+;; Require to be able to move line up and down
 (require 'move-lines)
 (move-lines-binding)
 
@@ -38,13 +45,7 @@
 (require 'octave-settings)
 
 ;; Company mode
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; Company mode hook function
-(defun my-company-mode-hook ()
-  (add-to-list 'company-backends 'company-tern))
-
-(add-hook 'company-mode-hook 'my-company-mode-hook)
+(require 'company-init)
 
 ;; Web mode init
 (require 'web-mode-settings)
