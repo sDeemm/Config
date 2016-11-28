@@ -1,8 +1,8 @@
 ;;; status-bar-init --- Initalize the status bar
 
 ;;; Code:
+(require 'powerline)
 (require 'airline-themes)
-(load-theme 'airline-dark t)
 
 (setq powerline-utf-8-separator-left        #xe0b0
       powerline-utf-8-separator-right       #xe0b2
@@ -14,5 +14,8 @@
       airline-utf-glyph-readonly            #xe0a2
       airline-utf-glyph-linenumber          #xe0a1)
 
+(setq airline-eshell-colors nil)
+
+(load-theme 'airline-dark t)
 (provide 'status-bar-init)
 ;;; status-bar-init.el ends here
