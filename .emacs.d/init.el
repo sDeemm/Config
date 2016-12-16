@@ -30,7 +30,6 @@
 (evil-mode 1)
 
 ;; auto-highlight-symbol init
-(require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode 1)
 
 ;; Ido mode and ido fuzzy search
@@ -40,18 +39,16 @@
 (require 'move-lines)
 (move-lines-binding)
 
+;; Restclient mode init
+(require 'restclient-init)
+
 ;; Language specific settings
 (require 'js2-mode-settings)
 (require 'octave-settings)
+(require 'web-mode-settings)
 
 ;; Company mode
 (require 'company-init)
-
-;; Web mode init
-(require 'web-mode-settings)
-(my-web-mode-init)
-
-;; company web html
 (require 'company-web-html)
 
 (defun my-c-mode-hook ()
@@ -62,3 +59,27 @@
 
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
+
+;;; Java init
+(require 'eclim)
+(require 'eclimd)
+(global-eclim-mode)
+
+(setq eclim-eclipse-dirs '("/opt/eclipse")
+      eclim-executable "/opt/eclipse/eclim")
+
+;;; Company emacs eclim
+(company-emacs-eclim-setup)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(eclim-print-debug-messages t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

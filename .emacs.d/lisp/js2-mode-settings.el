@@ -3,7 +3,6 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'js2-mode)
 
 ;; autoload ternjs
 (add-to-list 'load-path "/home/deemm/.emacs.d/tern/emacs/")
@@ -19,10 +18,10 @@
   (setq-default indent-tabs-mode nil)
   (tern-mode t))
 
-(add-hook 'js2-mode-hook 'my-js-hook)
-
-;; Global key bindings
-(global-set-key (kbd "<f2>") 'tern-find-definition)
+;; js2-mode config
+(with-eval-after-load "js2-mode"
+  (global-set-key (kbd "<f2>") 'tern-find-definition)
+  (add-hook 'js2-mode-hook 'my-js-hook))
 
 (provide 'js2-mode-settings)
 ;;; js2-mode-settings ends here

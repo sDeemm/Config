@@ -1,23 +1,23 @@
+;;; octave-settings --- Octave configuration
 
-(setq-default octave-block-offset 4)
+;;; Commentary:
 
+;;; Code:
 (autoload 'octave-mode "octave" nil t)
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 
-(add-hook 'octave-mode-hook
-	  (lambda ()
-	    (setq indent-tabs-mode nil)
-	    (abbrev-mode 1)
-	    (auto-fill-mode 1)
-	    (if (eq window-system 'x)
-		(font-lock-mode 1))))
+(defun my-octave-mode-hook ()
+  "Octave major mode hook."
+  (setq indent-tabs-mode nil)
+  (abbrev-mode 1)
+  (auto-fill-mode 1)
+  (if (eq window-system 'x)
+      (font-lock-mode 1)))
 
-(require 'ac-octave)
-(defun ac-octave-mode-setup ()
-  (setq ac-sources '(ac-source-octave)))
-
-(add-hook 'octave-mode-hook
-	  '(lambda () (ac-octave-mode-setup)))
+(with-eval-after-load "octave"
+  (setq-default octave-block-offset 4)
+  (add-hook 'octave-mode-hook 'my-octave-mode-hook))
 
 (provide 'octave-settings)
+;;; octave-settings.el ends here

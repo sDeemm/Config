@@ -19,6 +19,7 @@
   (package-install 'company-web)
   (package-install 'evil-vimish-fold)
   (package-install 'magit)
+  (package-install 'restclient)
   (package-install 'neotree)
   (package-install 'flycheck)
   (package-install 'flx-ido)

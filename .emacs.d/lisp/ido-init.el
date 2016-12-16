@@ -3,8 +3,8 @@
 ;;; Commentary:
 
 ;;; Code:
-
 (require 'flx-ido)
+
 (ido-mode 1)
 (ido-vertical-mode 1)
 (ido-everywhere 1)
