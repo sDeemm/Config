@@ -3,16 +3,13 @@
 ;;; Commentary:
 
 ;;; Code:
-
-(require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-;; Company mode hook function
-(defun my-company-mode-hook ()
-  "Company-mode hook function."
-  (add-to-list 'company-backends 'company-tern))
-
-(add-hook 'company-mode-hook 'my-company-mode-hook)
+;; company config
+(with-eval-after-load "company"
+  (add-to-list 'company-backends 'company-tern)
+  (add-to-list 'company-backends 'company-web-html)
+  (company-emacs-eclim-setup))
 
 (provide 'company-init)
 ;;; company-init.el ends here

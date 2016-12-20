@@ -47,10 +47,7 @@
 (require 'octave-settings)
 (require 'web-mode-settings)
 
-;; Company mode
-(require 'company-init)
-(require 'company-web-html)
-
+;; CC init
 (defun my-c-mode-hook ()
   (setq c-basic-offset 4
 	c-set-style "stroustrup"
@@ -60,23 +57,17 @@
 (add-hook 'c-mode-hook 'my-c-mode-hook)
 (add-hook 'c++-mode-hook 'my-c-mode-hook)
 
-;;; Java init
-(require 'eclim)
-(require 'eclimd)
-(global-eclim-mode)
+;; Java init
+(require 'java-init)
 
-(setq eclim-eclipse-dirs '("/opt/eclipse")
-      eclim-executable "/opt/eclipse/eclim")
-
-;;; Company emacs eclim
-(company-emacs-eclim-setup)
-
+;; Company mode
+(require 'company-init)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(eclim-print-debug-messages t))
+ '(gdb-show-main t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
