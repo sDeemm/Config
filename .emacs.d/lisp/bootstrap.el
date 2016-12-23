@@ -33,7 +33,8 @@
   (package-install 'projectile)
   (package-install 'ag)
   (package-install 'ac-octave)
-  (package-install 'sr-speedbar))
+  (package-install 'sr-speedbar)
+  (package-install 'cygwin-mount))
 
 (provide 'bootstrap)
 ;;; bootstrap.el ends here

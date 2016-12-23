@@ -62,15 +62,8 @@
 
 ;; Company mode
 (require 'company-init)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(gdb-show-main t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+;; OS dependant initialization
+(unless (eq system-type 'gnu/linux)
+  (message "Windows only initialization")
+  (require 'os-windows-init))

@@ -1,4 +1,4 @@
-;;; company-init --- Initialize comapny mode-line
+;;; company-init --- Initialize company mode-line
 
 ;;; Commentary:
 
