@@ -47,15 +47,8 @@
 (require 'octave-settings)
 (require 'web-mode-settings)
 
-;; CC init
-(defun my-c-mode-hook ()
-  (setq c-basic-offset 4
-	c-set-style "stroustrup"
-	indent-tabs-mode nil)
-  (auto-fill-mode 1))
-
-(add-hook 'c-mode-hook 'my-c-mode-hook)
-(add-hook 'c++-mode-hook 'my-c-mode-hook)
+;; C/C++ mode setup
+(require 'cc-init)
 
 ;; Java init
 (require 'java-init)
