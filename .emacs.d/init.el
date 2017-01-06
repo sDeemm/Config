@@ -3,7 +3,8 @@
 ;;; Commentary:
 
 ;;; Code:
-;; Added settings directory
+
+;; Add emacs lisp files in `load-path' directory
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 ;; Add Melpa packages
@@ -12,32 +13,21 @@
 
 (package-initialize)
 
-;;
-;; Settings
-;;
-(require 'color-settings)
-(require 'status-bar-init)
-(require 'general-settings)
-(require 'line-number-settings)
-(require 'neotree-settings)
-(require 'yasnippet-settings)
+(use-package bootstrap
+  :commands my-install-dep)
+
+(require 'my-emacs-core)
+(my-emacs-core-init)
+(my-emacs-setup-init)
 
 ;; Projectile project manager
-(projectile-global-mode)
+(require 'projectile-init)
 
 ;; Vi emulator layer
-(require 'evil)
-(evil-mode 1)
-
-;; auto-highlight-symbol init
-(global-auto-highlight-symbol-mode 1)
+(require 'evil-init)
 
 ;; Ido mode and ido fuzzy search
 (require 'ido-init)
-
-;; Require to be able to move line up and down
-(require 'move-lines)
-(move-lines-binding)
 
 ;; Restclient mode init
 (require 'restclient-init)
@@ -46,17 +36,30 @@
 (require 'js2-mode-settings)
 (require 'octave-settings)
 (require 'web-mode-settings)
-
-;; C/C++ mode setup
 (require 'cc-init)
-
-;; Java init
 (require 'java-init)
 
 ;; Company mode
 (require 'company-init)
 
+;; yasnippet-settings
+(require 'yasnippet-settings)
+
 ;; OS dependant initialization
 (unless (eq system-type 'gnu/linux)
   (message "Windows only initialization")
   (require 'os-windows-init))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (winum web-mode use-package sr-speedbar spaceline restclient projectile powerline-evil neotree molokai-theme magit macrostep js2-mode ido-vertical-mode google-this flycheck-irony flx-ido eyebrowse evil-vimish-fold esup cygwin-mount company-web company-tern company-irony-c-headers company-irony company-emacs-eclim cmake-mode auto-highlight-symbol airline-themes ag ac-octave))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

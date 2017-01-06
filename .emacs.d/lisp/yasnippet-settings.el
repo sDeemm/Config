@@ -3,9 +3,12 @@
 ;;; Commentary:
 
 ;;; Code:
-(require 'yasnippet)
 
-(yas-reload-all)
+(use-package yasnippet
+  :defer 1
+  :config
+  (yas-reload-all))
+
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 
 (provide 'yasnippet-settings)
