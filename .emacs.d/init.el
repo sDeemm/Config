@@ -49,17 +49,3 @@
 (unless (eq system-type 'gnu/linux)
   (message "Windows only initialization")
   (require 'os-windows-init))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (web-completion-data yasnippet flycheck irony eclim company auto-complete evil winum web-mode use-package sr-speedbar spaceline restclient projectile powerline-evil neotree molokai-theme magit macrostep js2-mode ido-vertical-mode google-this flycheck-irony flx-ido eyebrowse evil-vimish-fold esup cygwin-mount company-web company-tern company-irony-c-headers company-irony company-emacs-eclim cmake-mode auto-highlight-symbol airline-themes ag ac-octave))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
