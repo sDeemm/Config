@@ -2,8 +2,8 @@ set nocompatible              " be iMprove required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.config/nvim/bundle/Vundle.vim
+call vundle#begin('~/.config/nvim/bundle')
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
@@ -12,6 +12,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 Plugin 'mileszs/ack.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'valloric/youcompleteme'
@@ -25,8 +26,7 @@ source ~/.vim/vim_private.vim
 
 " Color Scheme "
 syntax on
-set background=dark
-colorscheme solarized
+colorscheme molokai
 
 " ***** Vim Settings ***** "
 
@@ -87,3 +87,4 @@ augroup Emmetgroup
     autocmd!
     autocmd FileType html,css EmmetInstall
 augroup END
+
