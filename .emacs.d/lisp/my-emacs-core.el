@@ -13,15 +13,16 @@
   "Remove gui elements of Emacs."
   (menu-bar-mode -1)
   (tool-bar-mode -1)
-  (scroll-bar-mode -1))
+  (scroll-bar-mode -1)
+  (setq inhibit-splash-screen t))
 
 (defun my-emacs-theme-setup ()
   "Setup my Emacs color theme."
   (load-theme 'molokai t))
 
-(defun my-emacs-linum-mode ()
-  "Enable linum mode."
-  (linum-mode 1))
+(defun my-emacs-nlinum-mode ()
+  "Enable nlinum mode."
+  (nlinum-mode 1))
 
 (defun my-emacs-winum-mode ()
   "Enable winum mode."
@@ -62,12 +63,13 @@
   (global-auto-highlight-symbol-mode 1)
   (eyebrowse-mode)
 
-  ;; Require to be able to move line up and down
+  ;; Required to be able to move line up and down
   (use-package move-lines
     :config
     (move-lines-binding))
 
-  (add-hook 'find-file-hook #'my-emacs-linum-mode)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'find-file-hook #'my-emacs-nlinum-mode)
   (add-hook 'after-init-hook #'spaceline-spacemacs-theme))
 
 (provide 'my-emacs-core)

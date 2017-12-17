@@ -5,7 +5,7 @@
 ;;; Code:
 
 (defun my-evil-init ()
-  "Hook that inialize evil package"
+  "Hook that inialize evil package."
   (use-package evil
     :config
     (evil-mode 1)

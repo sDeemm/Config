@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; Initialize emacs for C/C++ developpement
+;; Initialize Emacs for C/C++ developpement
 ;;
 
 ;;; Usage:
@@ -18,12 +18,12 @@
   :mode ("\\.h\\'" . c++-mode)
 
   :preface
-  (defun my-c-mode-hook ()
+  (defun cc-init--hook ()
     "CC Mode hook that initialize syntax and company backends."
     (c-set-style "stroustrup")
     (setq indent-tabs-mode nil)
     (auto-fill-mode 1)
-    (add-to-list 'company-backends '(company-irony-c-headers company-irony)))
+    (rtags-enable-standard-keybindings))
 
   :config
   (progn
@@ -31,45 +31,29 @@
     (use-package rtags
       :load-path "~/.emacs.d/rtags/"
       :commands rtags-enable-standard-keybindings
-      :init
-      (rtags-enable-standard-keybindings)
       :config
-      (setq rtags-autostart-diagnostics t))
+      (setq rtags-autostart-diagnostics t)
+      (rtags-diagnostics))
 
-    ;; Initialize syntax and company backends
-    (add-hook 'c++-mode-hook #'my-c-mode-hook)
-    (add-hook 'c-mode-hook #'my-c-mode-hook)
+    (use-package flycheck
+      :defer t
+      :config
+      (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
-    ;; Flycheck mode in c/c++ buffers
-    (add-hook 'c++-mode-hook #'flycheck-mode)
-    (add-hook 'c-mode-hook #'flycheck-mode)
+    (add-hook 'c++-mode-hook #'cc-init--hook)
+    (add-hook 'c-mode-hook #'cc-init--hook)
 
-    ;; Irony setup
-    (add-hook 'c++-mode-hook #'irony-mode)
-    (add-hook 'c-mode-hook #'irony-mode)
-    (add-hook 'objc-mode-hook #'irony-mode)))
+    (add-hook 'c++-mode-hook 'irony-mode)
+    (add-hook 'c-mode-hook 'irony-mode)
+    (add-hook 'objc-mode-hook 'irony-mode)
 
-(use-package irony
-  :defer t
-  :preface
-  ;; replace the `completion-at-point' and `complete-symbol' bindings in
-  ;; irony-mode's buffers by irony-mode's function
-  (defun my-irony-mode-hook ()
-    "Remap completion-at-point and complete-symbol bindings to irony-mode's."
-    (define-key irony-mode-map [remap completion-at-point]
-      'irony-completion-at-point-async)
-    (define-key irony-mode-map [remap complete-symbol]
-      'irony-completion-at-point-async))
-  :config
-  (progn
-    (add-hook 'irony-mode-hook #'my-irony-mode-hook)
-    (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)))
+    (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options)
+    (add-hook 'irony-mode-hook
+      (lambda ()
+	(set (make-local-variable 'company-backends) '(company-irony-c-headers company-irony))))
 
-;; flycheck irony setup
-(use-package flycheck
-  :defer t
-  :config
-  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+    (add-hook 'c++-mode-hook 'flycheck-mode)
+    (add-hook 'c-mode-hook 'flycheck-mode)))
 
 (provide 'cc-init)
 ;;; cc-init.el ends here

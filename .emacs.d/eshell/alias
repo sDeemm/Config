@@ -1,1 +1,2 @@
+alias l ll $*
 alias ll ls -alH
