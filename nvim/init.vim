@@ -9,13 +9,21 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'a.vim'
+Plugin 'rking/ag.vim'
+Plugin 'ryanoasis/vim-devicons'
 Plugin 'bling/vim-airline'
 Plugin 'majutsushi/tagbar'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'tomasr/molokai'
 Plugin 'mileszs/ack.vim'
 Plugin 'mattn/emmet-vim'
 Plugin 'valloric/youcompleteme'
+Plugin 'tpope/vim-fugitive'
+Plugin 'matchit.zip'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -46,16 +54,17 @@ set confirm
 set cmdheight=2
 set hlsearch
 set noshowmode
-set clipboard=unnamed
+set clipboard=unnamedplus
 set cursorline
 set relativenumber
 set ignorecase
 set smartcase
+set wildignore+=*/build/*
 
 " ***** Key Maps ***** "
 let mapleader=","
 
-map <c-t> :NERDTreeToggle<CR>
+map <silent> <c-t> :NERDTreeToggle<CR>
 map <F8>  :TagbarToggle<CR>
 map <c-h> <c-w><<CR>
 map <c-l> <c-w>><CR>
