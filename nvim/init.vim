@@ -75,6 +75,7 @@ set list
 set listchars=tab:┆\ ,trail:-,nbsp:+,extends:»,precedes:«
 set novisualbell
 set pumheight=15
+set path+=**
 set belloff=all
 set nobackup
 set nowritebackup
