@@ -25,6 +25,7 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-neco'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
