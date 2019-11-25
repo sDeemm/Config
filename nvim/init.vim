@@ -26,6 +26,8 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-neco'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'sebdemers/coc-codesearch', {'dir': 'E:\coc-codesearch', 'frozen': 1}
+"Plug 'brandonbloom/csearch.vim'
 
 call plug#end()
 
@@ -105,6 +107,7 @@ call <sid>__setup_command_abbrev_helper('CS', 'CSearch')
 call <sid>__setup_command_abbrev_helper('L', 'CocList')
 call <sid>__setup_command_abbrev_helper('T', 'OpenTODO')
 call <sid>__setup_command_abbrev_helper('RC', 'OpenDotInitFile')
+call <sid>__setup_command_abbrev_helper('R', 'CocListResume')
 
 " ***** Key Maps ***** "
 let mapleader=","
@@ -139,7 +142,7 @@ nnoremap <c-p> :<c-u>FZF<cr>
 inoremap <silent><expr> <c-space> coc#refresh()
 
 nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gt <Plug>(coc-type-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
@@ -163,10 +166,10 @@ nnoremap <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
 " nested classes / types in a namespace
 nnoremap <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
 " navigate
-nnoremap <silent><buffer> <C-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
-nnoremap <silent><buffer> <C-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>
-nnoremap <silent><buffer> <C-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>
-nnoremap <silent><buffer> <C-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'}
+nnoremap <silent><buffer> <Space>nl :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
+nnoremap <silent><buffer> <Space>nk :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>
+nnoremap <silent><buffer> <Space>nj :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>
+nnoremap <silent><buffer> <Space>nh :call CocLocations('ccls','$ccls/navigate',{'direction':'U'}
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <sid>show_documentation()<cr>
@@ -178,23 +181,26 @@ function! s:show_documentation()
   endif
 endfunction
 
+let g:coc_enable_locationlist = 0
 augroup coc_group
-autocmd!
-autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd!
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd User CocLocationsChange CocList --normal location
 augroup END
 
 " edit file in the clipboard
 nnoremap <silent><leader>ee :execute 'edit ' . @*<cr>
 
 " ClangFormat
-map  <leader>cf      :<c-u>pyf E:\llvm-project\out\9.0.0\share\clang\clang-format.py<cr>
-imap <leader>cf <c-o>:<c-u>pyf E:\llvm-project\out\9.0.0\share\clang\clang-format.py<cr>
+let g:clang_format_path = 'E:/llvm-project/out/9.0.0/bin/clang-format'
+map  <leader>cf      :pyf E:/llvm-project/out/9.0.0/share/clang/clang-format.py<cr>
+imap <leader>cf <c-o>:pyf E:/llvm-project/out/9.0.0/share/clang/clang-format.py<cr>
 
 " Find the word under cursor and populate the quickfix list
-nnoremap <silent><leader>sw :<c-u>call<sid>__find_word_under_cursor()<cr>
+nnoremap <silent><leader>sw :<c-u>call <sid>__find_word_under_cursor()<cr>
 function s:__find_word_under_cursor()
-  exec "vimgrep /\\<" . expand("<cword>") . "\\>/gj %" | CocList quickfix
+  execute 'CocList -I --normal --input='.expand('<cword>').' words'
 endfunction
 
 " Custom escape path function mainly needed for Windows
