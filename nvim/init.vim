@@ -69,7 +69,7 @@ set wildmenu
 set wildignore+=*/build/*
 set wildoptions=pum,tagfile
 set completeopt=menuone,noselect
-set colorcolumn=120
+set colorcolumn=100
 set signcolumn=yes
 set updatetime=300
 set shortmess+=c
