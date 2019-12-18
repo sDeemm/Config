@@ -27,6 +27,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-neco'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'sebdemers/coc-codesearch', {'dir': 'E:\coc-codesearch', 'frozen': 1}
+Plug 'airblade/vim-gitgutter'
 "Plug 'brandonbloom/csearch.vim'
 
 call plug#end()
