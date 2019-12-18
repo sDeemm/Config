@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "coc-lists": ">=1.3.5",
+    "coc-lists": ">=1.3.6",
     "coc-marketplace": ">=1.5.0",
     "coc-json": ">=1.2.4",
     "coc-highlight": ">=1.2.5",
     "coc-calc": ">=1.5.0",
-    "coc-pairs": ">=1.2.18",
-    "coc-tsserver": ">=1.4.8",
-    "coc-explorer": ">=0.2.0"
+    "coc-pairs": ">=1.2.19",
+    "coc-tsserver": ">=1.4.9",
+    "coc-explorer": ">=0.2.6"
   }
 }
