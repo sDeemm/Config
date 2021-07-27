@@ -1,18 +1,10 @@
 {
   "languageserver": {
-    "ccls": {
-      "command": "E:\\ccls\\out\\bin\\ccls.exe",
-      "args": ["--log-file=E:\\myCAE\\sandbox\\ccls.log", "-v=1"],
-      "filetypes": ["c", "cpp", "cuda", "objc", "objcpp"],
-      "rootPatterns": [".ccls-root", "compile_commands.json"],
-      "initializationOptions": {
-        "cache": {
-          "directory": "E:/.ccls-cache"
-        },
-        "index": {
-          "initialBlacklist": ["Metadata.(C|c|cc|cpp|cxx)"]
-        }
-      }
+    "clangd": {
+      "command": "clangd",
+      "args": ["--log=verbose", "-j=4"],
+      "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
+      "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
     }
   },
   "list.source.files.command": "fd",
