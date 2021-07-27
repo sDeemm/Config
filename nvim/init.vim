@@ -1,43 +1,44 @@
-set nocompatible
+" init.vim
 
 call plug#begin(stdpath('data') . '/plugged')
 
+"Plug 'airblade/vim-gitgutter'
+Plug 'derekwyatt/vim-fswitch'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'justinmk/vim-sneak'
 Plug 'kien/rainbow_parentheses.vim'
-Plug 'kaicataldo/material.vim'
 Plug 'majutsushi/tagbar'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'neoclide/coc-neco'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'roxma/nvim-yarp'
 Plug 'scrooloose/nerdtree'
+Plug 'sebdemers/coc-codesearch', {'dir': 'D:\src\coc-codesearch', 'frozen': 1}
 Plug 'sheerun/vim-polyglot'
-Plug 'Shougo/neoinclude.vim'
 Plug 'Shougo/neco-vim'
-Plug 'Shougo/echodoc.vim'
+Plug 'Shougo/neoinclude.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/matchit.zip'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc-neco'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'sebdemers/coc-codesearch', {'dir': 'E:\coc-codesearch', 'frozen': 1}
-Plug 'airblade/vim-gitgutter'
-"Plug 'brandonbloom/csearch.vim'
+Plug 'szw/vim-maximizer'
+Plug 'dbeniamine/cheat.sh-vim'
+
+" Colors
+Plug 'gruvbox-community/gruvbox'
+Plug 'kaicataldo/material.vim'
+Plug 'joshdick/onedark.vim'
 
 call plug#end()
-
-filetype plugin indent on
-syntax on
-
-" Color Scheme "
-let g:material_theme_style = 'darker'
-colorscheme material
 
 " ***** Vim Settings ***** "
 
@@ -50,16 +51,17 @@ set expandtab
 
 " Other settings "
 set encoding=utf-8
+set nowrap
 set hidden
 set backspace=2
 set laststatus=2
 set showtabline=2
+set sidescroll=5
 set mouse=a
 set confirm
 set cmdheight=2
-set hlsearch
+set nohlsearch
 set noshowmode
-"set clipboard=unnamedplus
 set cursorline
 set number
 set relativenumber
@@ -69,9 +71,10 @@ set wildmenu
 set wildignore+=*/build/*
 set wildoptions=pum,tagfile
 set completeopt=menuone,noselect
-set colorcolumn=100
+set tags+=.git/tags
+set colorcolumn=120
 set signcolumn=yes
-set updatetime=300
+set updatetime=50
 set shortmess+=c
 set lazyredraw
 set inccommand=split
@@ -96,6 +99,17 @@ set foldmethod=indent
 set nofoldenable
 set foldnestmax=10
 
+" Color Scheme "
+" let g:material_theme_style = 'darker'
+" colorscheme material
+let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_invert_selection='0'
+colorscheme onedark
+set background=dark
+
+" FZF
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+
 " abbrev
 function! s:__setup_command_abbrev_helper(from, to)
   exec 'cnoreabbrev <expr> '.a:from
@@ -106,6 +120,7 @@ endfunction
 call <sid>__setup_command_abbrev_helper('C', 'CocConfig')
 call <sid>__setup_command_abbrev_helper('CS', 'CSearch')
 call <sid>__setup_command_abbrev_helper('L', 'CocList')
+call <sid>__setup_command_abbrev_helper('LL', 'CocList --tab')
 call <sid>__setup_command_abbrev_helper('T', 'OpenTODO')
 call <sid>__setup_command_abbrev_helper('RC', 'OpenDotInitFile')
 call <sid>__setup_command_abbrev_helper('R', 'CocListResume')
@@ -113,8 +128,10 @@ call <sid>__setup_command_abbrev_helper('R', 'CocListResume')
 " ***** Key Maps ***** "
 let mapleader=","
 
-map <silent> <f4> :NERDTreeToggle<CR>
 map <silent> <f8> :TagbarToggle<CR>
+nnoremap <leader>t :TagbarCurrentTag p<CR>
+nnoremap <leader>n :NERDTreeToggle<CR>
+nnoremap <leader>N :NERDTreeFind<CR>
 
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -128,20 +145,44 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
+nnoremap <C-L> :<C-U>nohl<CR><C-L>
+nnoremap Q @q
+vnoremap Q :normal! @q<CR>
 
-nnoremap <silent><leader>ff  :<c-u>CocList files<cr>
-nnoremap <silent><leader>fg  :<c-u>CocList grep -w <c-r><c-w><cr>
-nnoremap <silent><leader>ft  :<c-u>CocList tags<cr>
-nnoremap <silent><leader>fh  :<c-u>CocList mru<cr>
-nnoremap <silent><leader>fb  :<c-u>CocList buffers<cr>
-nnoremap <silent><leader>fw  :<c-u>CocList words<cr>
-nnoremap <silent><leader>rg  :Rg \b<c-r><c-w>\b<cr>
-nnoremap <silent><leader>RG  :Rg! \b<c-r><c-w>\b<cr>
-nnoremap <c-p> :<c-u>FZF<cr>
+nnoremap <space>ff   :<c-u>CocList files -folder<cr>
+nnoremap <space>fF   :<c-u>CocList --tab files -folder<cr>
+nnoremap <space>fw   :<c-u>CocList files -workspace<cr>
+nnoremap <space>fW   :<c-u>CocList --tab files -workspace<cr>
+nnoremap <space>b    :<c-u>CocList buffers<cr>
+nnoremap <space>B    :<c-u>CocList --tab buffers<cr>
+nnoremap <space>gf   :<c-u>CocList grep -folder -w <c-r><c-w><cr>
+nnoremap <space>gF   :<c-u>CocList --tab grep -folder -w <c-r><c-w><cr>
+nnoremap <space>gw   :<c-u>CocList grep -workspace -w <c-r><c-w><cr>
+nnoremap <space>gW   :<c-u>CocList --tab grep -workspace -w <c-r><c-w><cr>
+nnoremap <space>gg   :<c-u>CocList grep -w <c-r><c-w><cr>
+nnoremap <space>gi   :<c-u>CocList grep -i <c-r><c-w><cr>
+nnoremap <c-p> :<c-u>CocList files<cr>
+
+nnoremap <silent><A-o> :<c-u>FSHere<cr>
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -185,18 +226,31 @@ endfunction
 let g:coc_enable_locationlist = 0
 augroup coc_group
   autocmd!
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  "autocmd CursorHold * silent call CocActionAsync('highlight')
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
   autocmd User CocLocationsChange CocList --normal location
 augroup END
+
+"
+" Autocmds for FSwitch
+"
+aug fswitch_vim_grp
+  au!
+  au BufEnter *.cxx
+    \ let b:fswitchdst = 'h,hxx,hpp' |
+    \ let b:fswitchlocs = 'reg:/src/include/'
+  au BufEnter *.h
+    \ let b:fswitchdst = 'cxx,cpp,c' |
+    \ let b:fswitchlocs = 'reg:/include/src/'
+aug END
 
 " edit file in the clipboard
 nnoremap <silent><leader>ee :execute 'edit ' . @*<cr>
 
 " ClangFormat
-let g:clang_format_path = 'E:/llvm-project/out/9.0.0/bin/clang-format'
-map  <leader>cf      :pyf E:/llvm-project/out/9.0.0/share/clang/clang-format.py<cr>
-imap <leader>cf <c-o>:pyf E:/llvm-project/out/9.0.0/share/clang/clang-format.py<cr>
+let g:clang_format_path = 'D:/LLVM/bin/clang-format.exe'
+map  <leader>cf      :py3f D:/LLVM/share/clang/clang-format.py<cr>
+imap <leader>cf <c-o>:py3f D:/LLVM/share/clang/clang-format.py<cr>
 
 " Find the word under cursor and populate the quickfix list
 nnoremap <silent><leader>sw :<c-u>call <sid>__find_word_under_cursor()<cr>
@@ -230,15 +284,13 @@ function! s:EscapePathWin32AndClipboard(path)
   let @*=s:__MyEscapePath(a:path)
 endfunction
 
-command! CopyFile    call s:EscapePathWin32AndClipboard(expand("%:p"))
-command! CopyFileDir call s:EscapePathWin32AndClipboard(expand("%:p:h"))
+command! CopyFile     call s:EscapePathWin32AndClipboard(expand("%:p"))
+command! CopyFileName call s:EscapePathWin32AndClipboard(expand("%:t"))
+command! CopyFileDir  call s:EscapePathWin32AndClipboard(expand("%:p:h"))
 command! OpenDotInitFile edit $MYVIMRC
-command! OpenTODO edit E:\myCAE\sandbox\TODO.md
+command! OpenTODO edit D:\myCAE\sandbox\TODO.md
 
-" lightline settings "
-let g:lightline#bufferline#unnamed = '[No Name]'
-let g:lightline#bufferline#show_number = 1
-let g:lightline#bufferline#filename_modifier = ':t'
+" Lightline settings
 let g:lightline = {
   \ 'active': {
   \   'left': [ [ 'mode', 'paste' ],
@@ -248,34 +300,18 @@ let g:lightline = {
   \   'statusline': 1,
   \   'tabline': 1
   \   },
-  \ 'colorscheme': 'material_vim',
-  \ 'tabline' : {'left': [['buffers']], 'right': [['close']]},
-  \ 'component_expand' : {'buffers': 'lightline#bufferline#buffers'},
-  \ 'component_type' : {'buffers': 'tabsel'},
+  \ 'colorscheme': 'one',
   \ 'component_function': {
   \   'cocstatus': 'coc#status'
   \ }
   \ }
 
-" Hacking arround issue #7377. Basically, we need fixup the $path variable so
-" the clipboard starts working again.
-" TODO: Check if this is still needed.
-let s:path_with_trailing=$path . ';'
-let $path=substitute(s:path_with_trailing, ';;', ';', 'g')
-
 " XML Folding based on syntax
 let g:xml_syntax_folding = 1
 
-" echodoc
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'signature'
-highlight link EchoDocFloat Pmenu
-
-" git grep
-command! -bang -nargs=* GGrep
-  \  call fzf#vim#grep(
-  \    'git grep --line-number '.shellescape(<q-args>), 0,
-  \    { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+" NERDTree
+let NERDTreeWinPos="right"
+let NERDTreeWinSize=61
 
 " Handle external files changes
 aug checktime_grp
@@ -286,15 +322,21 @@ aug END
 " Projectionist
 let g:projectionist_heuristics = get(g:, 'projectionist_heuristics', {})
 
-" indentLine settings
-let g:indentLine_enabled = 1
-let g:indentLine_leadingSpaceEnabled = 0
-
 " csearch
+let g:codesearch#csearch_cmd = 'csearch -n'
 command! -bang -nargs=? CSearch call codesearch#csearch(<q-args>, <bang>0)
-nnoremap <leader>cs :CSearch \b<C-R><C-W>\b<CR>
+command! -bang -nargs=? CSearchCpp call codesearch#csearch_cpp(<q-args>, <bang>0)
+
+" vim-maximizer
+let g:maximizer_default_mapping_key = '<leader>mt'
 
 if has("win32")
+  " Hacking arround issue #7377. Basically, we need fixup the $path variable so
+  " the clipboard starts working again.
+  " TODO: Check if this is still needed.
+  let s:path_with_trailing=$path . ';'
+  let $path=substitute(s:path_with_trailing, ';;', ';', 'g')
+
   call setup#init_windows_specific()
 else
   call setup#init_unix_specific()
