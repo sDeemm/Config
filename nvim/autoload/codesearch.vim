@@ -25,16 +25,7 @@
 let s:cpo_save = &cpo
 set cpo&vim
 
-" let s:db_path_ = 'D:\.csearchindex\CGF6.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\CGF7.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\CGFSTUDIO.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\FLT_BACKDRIVE.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\HOISTMEDIATOR.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\SGL_RTS.csearchindex'
-" let s:db_path_ = 'D:\.csearchindex\USL.csearchindex'
-" let s:db_path_ = 'D:\src\CRYENGINE.csearchindex'
-let s:db_path_ = 'D:\src\godot.csearchindex'
-" let s:db_path_ = 'D:\src\ogre-next.csearchindex'
+let s:db_path_ = 'D:\.csearchindex\test.csearchindex'
 
 let g:codesearch#csearch_cmd =
     \ get( g:, 'g:codesearch#csearch_cmd', 'csearch -indexpath ' . s:db_path_ . ' -n' )
