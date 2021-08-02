@@ -22,6 +22,7 @@ Plug 'sebdemers/coc-codesearch', {'dir': 'D:\src\coc-codesearch', 'frozen': 1}
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tikhomirov/vim-glsl'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
