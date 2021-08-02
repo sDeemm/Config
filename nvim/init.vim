@@ -18,7 +18,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'roxma/nvim-yarp'
 Plug 'scrooloose/nerdtree'
 Plug 'sebdemers/coc-codesearch', {'dir': 'D:\src\coc-codesearch', 'frozen': 1}
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/neco-vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'terryma/vim-multiple-cursors'
@@ -241,7 +241,7 @@ augroup END
 "
 aug fswitch_vim_grp
   au!
-  au BufEnter *.cxx
+  au BufEnter *.cxx, *.cpp
     \ let b:fswitchdst = 'h,hxx,hpp' |
     \ let b:fswitchlocs = 'reg:/src/include/'
   au BufEnter *.h
@@ -318,12 +318,6 @@ let g:xml_syntax_folding = 1
 let NERDTreeWinPos="right"
 let NERDTreeWinSize=61
 
-" Handle external files changes
-aug checktime_grp
-  au!
-  au FocusGained,BufEnter * :checktime
-aug END
-
 " Projectionist
 let g:projectionist_heuristics = get(g:, 'projectionist_heuristics', {})
 
@@ -347,3 +341,4 @@ else
   call setup#init_unix_specific()
 endif
 
+set secure
