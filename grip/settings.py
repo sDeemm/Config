@@ -1,0 +1,2 @@
+USERNAME = 'sDeemm'
+PASSWORD = '3ad00f8334691a1a0a5f929e95be78b97be7f09c'
