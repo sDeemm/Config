@@ -148,6 +148,11 @@ nnoremap <A-l> <C-w>l
 nnoremap <C-L> :<C-U>nohl<CR><C-L>
 nnoremap Q @q
 vnoremap Q :normal! @q<CR>
+nnoremap <C-j> :cnext<CR>zzzv
+nnoremap <C-h> :cprev<CR>zzzv
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
 
 nnoremap <space>ff   :<c-u>CocList files -folder<cr>
 nnoremap <space>fF   :<c-u>CocList --tab files -folder<cr>
