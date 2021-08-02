@@ -242,12 +242,12 @@ augroup END
 "
 aug fswitch_vim_grp
   au!
-  au BufEnter *.cxx, *.cpp
+  au BufEnter *.cxx,*.cpp
     \ let b:fswitchdst = 'h,hxx,hpp' |
-    \ let b:fswitchlocs = 'reg:/src/include/'
+    \ let b:fswitchlocs = 'reg:/src/inc/,../../inc/**,./'
   au BufEnter *.h
     \ let b:fswitchdst = 'cxx,cpp,c' |
-    \ let b:fswitchlocs = 'reg:/include/src/'
+    \ let b:fswitchlocs = 'reg:/inc/src/,reg:/inc//,./'
 aug END
 
 " edit file in the clipboard
