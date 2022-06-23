@@ -2,7 +2,6 @@
 
 call plug#begin(stdpath('data') . '/plugged')
 
-"Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-fswitch'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
@@ -16,7 +15,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'neoclide/coc-neco'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'roxma/nvim-yarp'
-Plug 'scrooloose/nerdtree'
 Plug 'sebdemers/coc-codesearch', {'dir': 'D:\src\coc-codesearch', 'frozen': 1}
 "Plug 'sheerun/vim-polyglot'
 Plug 'Shougo/neco-vim'
@@ -33,80 +31,17 @@ Plug 'vim-scripts/BufOnly.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'szw/vim-maximizer'
 Plug 'dbeniamine/cheat.sh-vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python -m chadtree deps'}
+
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
-Plug 'kaicataldo/material.vim'
-Plug 'joshdick/onedark.vim'
+Plug 'marko-cerovac/material.nvim'
+Plug 'navarasu/onedark.nvim'
 
 call plug#end()
-
-" ***** Vim Settings ***** "
-
-" Tabulation "
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set smarttab
-set expandtab
-
-" Other settings "
-set encoding=utf-8
-set nowrap
-set hidden
-set backspace=2
-set laststatus=2
-set showtabline=2
-set sidescroll=5
-set mouse=a
-set confirm
-set cmdheight=2
-set nohlsearch
-set noshowmode
-set cursorline
-set number
-set relativenumber
-set ignorecase
-set smartcase
-set wildmenu
-set wildignore+=*/build/*
-set wildoptions=pum,tagfile
-set completeopt=menuone,noselect
-set tags+=.git/tags
-set colorcolumn=120
-set signcolumn=yes
-set updatetime=50
-set shortmess+=c
-set lazyredraw
-set inccommand=split
-set list
-set listchars=tab:┆\ ,trail:-,nbsp:+,extends:»,precedes:«
-set novisualbell
-set pumheight=15
-set path+=**
-set belloff=all
-set nobackup
-set nowritebackup
-set noimdisable
-set noswapfile
-set undofile
-set undodir=~/.undodir
-if has('termguicolors')
-  set termguicolors
-endif
-
-" Default folding
-set foldmethod=indent
-set nofoldenable
-set foldnestmax=10
-
-" Color Scheme "
-" let g:material_theme_style = 'darker'
-" colorscheme material
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_invert_selection='0'
-colorscheme onedark
-set background=dark
 
 " FZF
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
@@ -131,8 +66,6 @@ let mapleader=","
 
 map <silent> <f8> :TagbarToggle<CR>
 nnoremap <leader>t :TagbarCurrentTag p<CR>
-nnoremap <leader>n :NERDTreeToggle<CR>
-nnoremap <leader>N :NERDTreeFind<CR>
 
 tnoremap <A-h> <C-\><C-N><C-w>h
 tnoremap <A-j> <C-\><C-N><C-w>j
@@ -159,15 +92,15 @@ nnoremap <space>ff   :<c-u>CocList files -folder<cr>
 nnoremap <space>fF   :<c-u>CocList --tab files -folder<cr>
 nnoremap <space>fw   :<c-u>CocList files -workspace<cr>
 nnoremap <space>fW   :<c-u>CocList --tab files -workspace<cr>
-nnoremap <space>b    :<c-u>CocList buffers<cr>
-nnoremap <space>B    :<c-u>CocList --tab buffers<cr>
 nnoremap <space>gf   :<c-u>CocList grep -folder -w <c-r><c-w><cr>
 nnoremap <space>gF   :<c-u>CocList --tab grep -folder -w <c-r><c-w><cr>
 nnoremap <space>gw   :<c-u>CocList grep -workspace -w <c-r><c-w><cr>
 nnoremap <space>gW   :<c-u>CocList --tab grep -workspace -w <c-r><c-w><cr>
 nnoremap <space>gg   :<c-u>CocList grep -w <c-r><c-w><cr>
 nnoremap <space>gi   :<c-u>CocList grep -i <c-r><c-w><cr>
-nnoremap <c-p> :<c-u>CocList files<cr>
+nnoremap <space>b    :<c-u>CocList buffers<cr>
+nnoremap <space>B    :<c-u>CocList --tab buffers<cr>
+nnoremap <c-p> :<c-u>Files<cr>
 
 nnoremap <silent><A-o> :<c-u>FSHere<cr>
 
@@ -229,34 +162,14 @@ function! s:show_documentation()
   endif
 endfunction
 
-let g:coc_enable_locationlist = 0
-augroup coc_group
-  autocmd!
-  "autocmd CursorHold * silent call CocActionAsync('highlight')
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-  autocmd User CocLocationsChange CocList --normal location
-augroup END
-
-"
-" Autocmds for FSwitch
-"
-aug fswitch_vim_grp
-  au!
-  au BufEnter *.cxx,*.cpp
-    \ let b:fswitchdst = 'h,hxx,hpp' |
-    \ let b:fswitchlocs = 'reg:/src/inc/,../../inc/**,./'
-  au BufEnter *.h
-    \ let b:fswitchdst = 'cxx,cpp,c' |
-    \ let b:fswitchlocs = 'reg:/inc/src/,reg:/inc//,./'
-aug END
 
 " edit file in the clipboard
 nnoremap <silent><leader>ee :execute 'edit ' . @*<cr>
 
 " ClangFormat
-let g:clang_format_path = 'D:/LLVM/bin/clang-format.exe'
-map  <leader>cf      :py3f D:/LLVM/share/clang/clang-format.py<cr>
-imap <leader>cf <c-o>:py3f D:/LLVM/share/clang/clang-format.py<cr>
+let g:clang_format_path = 'C:/Program Files/LLVM/bin/clang-format.exe'
+map  <leader>cf      :py3f C:/Program Files/LLVM/share/clang/clang-format.py<cr>
+imap <leader>cf <c-o>:py3f C:/Program Files/LLVM/share/clang/clang-format.py<cr>
 
 " Find the word under cursor and populate the quickfix list
 nnoremap <silent><leader>sw :<c-u>call <sid>__find_word_under_cursor()<cr>
@@ -312,12 +225,22 @@ let g:lightline = {
   \ }
   \ }
 
+" chadthree settings
+let g:chadtree_settings = {
+    \ 'theme' : {
+      \ 'icon_glyph_set' : 'ascii',
+    \ },
+    \ 'view' : {
+      \ 'open_direction' : 'right',
+      \ 'width' : 61,
+    \ },
+  \ }
+
+" ctags path
+let g:tagbar_ctags_bin='C:/Users/sebdemers/scoop/shims/ctags.exe'
+
 " XML Folding based on syntax
 let g:xml_syntax_folding = 1
-
-" NERDTree
-let NERDTreeWinPos="right"
-let NERDTreeWinSize=61
 
 " Projectionist
 let g:projectionist_heuristics = get(g:, 'projectionist_heuristics', {})
@@ -327,19 +250,57 @@ let g:codesearch#csearch_cmd = 'csearch -n'
 command! -bang -nargs=? CSearch call codesearch#csearch(<q-args>, <bang>0)
 command! -bang -nargs=? CSearchCpp call codesearch#csearch_cpp(<q-args>, <bang>0)
 
+" nvim-treesitter
+lua << EOF
+require'nvim-treesitter.install'.compilers = { 'clang', 'gcc', 'cl' }
+
+-- Basic setup from https://github.com/nvim-treesitter/nvim-treesitter#modules
+require'nvim-treesitter.configs'.setup({
+  -- A list of parser names, or "all"
+  ensure_installed = {
+    "c",
+    "cpp",
+    "glsl",
+    "lua",
+    "cmake",
+    "go",
+    "rust"
+  },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+})
+EOF
+
 " vim-maximizer
 let g:maximizer_default_mapping_key = '<leader>mt'
 
-if has("win32")
-  " Hacking arround issue #7377. Basically, we need fixup the $path variable so
-  " the clipboard starts working again.
-  " TODO: Check if this is still needed.
-  let s:path_with_trailing=$path . ';'
-  let $path=substitute(s:path_with_trailing, ';;', ';', 'g')
+let g:coc_enable_locationlist = 0
+augroup coc_group
+  autocmd!
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+  autocmd User CocLocationsChange CocList --normal location
+augroup END
 
-  call setup#init_windows_specific()
-else
-  call setup#init_unix_specific()
-endif
+aug fswitch_vim_grp
+  au!
+  au BufEnter *.cxx,*.cpp
+    \ let b:fswitchdst = 'h,hxx,hpp' |
+    \ let b:fswitchlocs = 'reg:/src/inc/,../../inc/**,./'
+  au BufEnter *.h
+    \ let b:fswitchdst = 'cxx,cpp,c' |
+    \ let b:fswitchlocs = 'reg:/inc/src/,reg:/inc//,./'
+aug END
 
 set secure

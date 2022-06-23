@@ -1,10 +1,13 @@
 {
   "dependencies": {
-    "coc-json": ">=1.3.6",
+    "coc-json": ">=1.4.2",
     "coc-lines": ">=0.5.0",
-    "coc-lists": ">=1.4.2",
-    "coc-marketplace": ">=1.8.1",
+    "coc-lists": ">=1.4.3",
+    "coc-markdown-preview-enhanced": ">=0.4.3",
+    "coc-markdownlint": ">=1.12.4",
+    "coc-marketplace": ">=1.9.0",
     "coc-pyls": ">=1.0.6",
-    "coc-tsserver": ">=1.8.6"
+    "coc-tsserver": ">=1.10.5",
+    "coc-webview": ">=0.11.1"
   }
 }

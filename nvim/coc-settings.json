@@ -1,12 +1,26 @@
 {
   "languageserver": {
     "clangd": {
-      "command": "clangd",
-      "args": ["--log=verbose", "-j=4"],
+      "command": "C:\\Program Files\\LLVM\\bin\\clangd.exe",
+      "args": ["--log=verbose", "-j=8"],
       "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
       "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": [
+        "build/"
+      ],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
     }
   },
   "list.source.files.command": "fd",
-  "list.source.files.args" :  [ "--type", "f" ]
+  "list.source.files.args" :  [ "--type", "f" ],
+  "markdownlint.config": {
+      "default": true,
+      "line-length": false
+    }
 }
