@@ -44,6 +44,17 @@ Plug 'navarasu/onedark.nvim'
 call plug#end()
 
 " FZF
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+endfunction
+
+let g:fzf_action = {
+    \ 'ctrl-q': function('s:build_quickfix_list'),
+    \ 'ctrl-t': 'tab split',
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vsplit' }
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 
 " abbrev
@@ -88,21 +99,25 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-nnoremap <space>ff   :<c-u>CocList files -folder<cr>
-nnoremap <space>fF   :<c-u>CocList --tab files -folder<cr>
-nnoremap <space>fw   :<c-u>CocList files -workspace<cr>
-nnoremap <space>fW   :<c-u>CocList --tab files -workspace<cr>
-nnoremap <space>gf   :<c-u>CocList grep -folder -w <c-r><c-w><cr>
-nnoremap <space>gF   :<c-u>CocList --tab grep -folder -w <c-r><c-w><cr>
-nnoremap <space>gw   :<c-u>CocList grep -workspace -w <c-r><c-w><cr>
-nnoremap <space>gW   :<c-u>CocList --tab grep -workspace -w <c-r><c-w><cr>
-nnoremap <space>gg   :<c-u>CocList grep -w <c-r><c-w><cr>
-nnoremap <space>gi   :<c-u>CocList grep -i <c-r><c-w><cr>
-nnoremap <space>b    :<c-u>CocList buffers<cr>
-nnoremap <space>B    :<c-u>CocList --tab buffers<cr>
-nnoremap <c-p> :<c-u>Files<cr>
-
-nnoremap <silent><A-o> :<c-u>FSHere<cr>
+nnoremap <silent><nowait> <space>ff  :<c-u>CocList files -folder<cr>
+nnoremap <silent><nowait> <space>fF  :<c-u>CocList --tab files -folder<cr>
+nnoremap <silent><nowait> <space>fw  :<c-u>CocList files -workspace<cr>
+nnoremap <silent><nowait> <space>fW  :<c-u>CocList --tab files -workspace<cr>
+nnoremap <silent><nowait> <space>gf  :<c-u>CocList grep -folder -w <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>gF  :<c-u>CocList --tab grep -folder -w <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>gw  :<c-u>CocList grep -workspace -w <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>gW  :<c-u>CocList --tab grep -workspace -w <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>gg  :<c-u>CocList grep -w <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>gi  :<c-u>CocList grep -i <c-r><c-w><cr>
+nnoremap <silent><nowait> <space>b   :<c-u>CocList buffers<cr>
+nnoremap <silent><nowait> <space>B   :<c-u>CocList --tab buffers<cr>
+nnoremap <silent><nowait> <space>j   :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>k   :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>p   :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <space>s   :<C-u>CocList symbols<CR>
+nnoremap <silent><nowait> <c-p>      :<c-u>Files<cr>
+nnoremap <silent><nowait> <A-o>      :<c-u>FSHere<cr>
+nnoremap <silent><nowait> <A-m>      :<c-u>CocList outline<cr>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -120,6 +135,11 @@ endfunction
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <silent> gD <Plug>(coc-declaration)
 nmap <silent> gd <Plug>(coc-definition)

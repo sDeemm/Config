@@ -6,7 +6,7 @@ set smarttab
 set expandtab
 
 " Menu
-set wildmode=longest,list,full
+set wildmode=full
 set wildmenu
 set wildignore+=*/build/*
 set wildignore+=*_build/*
@@ -60,8 +60,9 @@ if has('termguicolors')
   set termguicolors
 endif
 
-" Default folding
-set foldmethod=indent
-set nofoldenable
+" Folding
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldminlines=2
 set foldnestmax=10
-
+set nofoldenable
